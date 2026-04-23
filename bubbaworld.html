@@ -1008,9 +1008,9 @@ const LEVELS = [
       { x: 290, y: 140 }
     ],
     goldenTreat: { x: 200, y: 40 },
-    // Vacuum lives in the lower ~120 pixels. Its danger zone extends up 100px,
-    // so anything above y=530 is safe. Player just needs to climb off the ground.
-    vacuum: { x: 250, y: 630, w: 110, h: 40, speed: 0.8, dir: -1, range: 100 },
+    // Vacuum lives in the lower ~120 pixels. Its danger zone extends up 60px,
+    // so anything at y<=570 is safe. The first amber platform is the escape perch.
+    vacuum: { x: 250, y: 630, w: 110, h: 40, speed: 0.8, dir: -1, range: 60 },
     goalY: 80
   }
 ];
