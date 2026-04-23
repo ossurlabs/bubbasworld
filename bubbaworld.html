@@ -1513,8 +1513,12 @@ function drawVacuum(v) {
 function drawBubba() {
   const b = state.bubba;
   let sprite;
+  // Jump always flips the right-facing sprite at draw time — the baked
+  // jumpL cell in the PNG strip isn't reliably mirrored.
+  let flipFromR = false;
   if (b.anim === 'jump') {
-    sprite = b.facing === 1 ? sprites.jumpR : sprites.jumpL;
+    sprite = sprites.jumpR;
+    flipFromR = b.facing !== 1;
   } else if (b.anim === 'walk') {
     if (b.walkFrame === 0) {
       sprite = b.facing === 1 ? sprites.walk1R : sprites.walk1L;
@@ -1524,7 +1528,17 @@ function drawBubba() {
   } else {
     sprite = b.facing === 1 ? sprites.idleR : sprites.idleL;
   }
-  ctx.drawImage(sprite, Math.floor(b.x), Math.floor(b.y));
+  const x = Math.floor(b.x);
+  const y = Math.floor(b.y);
+  if (flipFromR) {
+    ctx.save();
+    ctx.translate(x + sprite.width, y);
+    ctx.scale(-1, 1);
+    ctx.drawImage(sprite, 0, 0);
+    ctx.restore();
+  } else {
+    ctx.drawImage(sprite, x, y);
+  }
 }
 
 // =============================================================================
