@@ -1057,7 +1057,8 @@ const state = {
     walkTimer: 0,
     anim: 'idle',
     coyote: 0,
-    jumpBuffer: 0
+    jumpBuffer: 0,
+    hitCooldown: 0
   },
   input: { left: false, right: false, jump: false, jumpPressed: false },
   levelIdx: 0,
@@ -1111,6 +1112,7 @@ function resetBubba() {
   state.bubba.onGround = false;
   state.bubba.coyote = 0;
   state.bubba.jumpBuffer = 0;
+  state.bubba.hitCooldown = 0;
   state.treatsCollected = [];
   state.goldenCollected = false;
   if (lvl.enemies) {
@@ -1133,6 +1135,8 @@ function resetBubba() {
 function updateBubba(dt) {
   const b = state.bubba;
   const lvl = currentLevel();
+
+  if (b.hitCooldown > 0) b.hitCooldown--;
 
   // Horizontal input
   let ax = 0;
@@ -1228,10 +1232,11 @@ function updateBubba(dt) {
       if (e.x <= e.x1) { e.x = e.x1; e.dir = 1; }
       if (e.x >= e.x2) { e.x = e.x2; e.dir = -1; }
       const eRect = { x: e.x, y: e.y, w: 22, h: 20 };
-      if (rectOverlap(b, eRect)) {
-        // Bounce back, don't die
-        b.vx = -b.facing * 6;
+      if (rectOverlap(b, eRect) && b.hitCooldown <= 0) {
+        // Bounce back, don't die — push out of overlap so it doesn't retrigger every frame
+        b.x += -b.facing * 10;
         b.vy = -6;
+        b.hitCooldown = 24;
         state.cameraShake = 8;
         sfx.bounce();
       }
