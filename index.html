@@ -760,26 +760,30 @@ function drawPortraitOn(canvasEl, expression = 'joy') {
   }
 }
 
-// Bone/treat sprite
+// Bone/treat sprite — classic four-bulb dog bone with outline
+const BONE_PATTERN = [
+  '.KKK....KKK.',
+  'KFFFK..KFFFK',
+  'KFFFFFFFFFFK',
+  'KFFFFFFFFFFK',
+  'KFFFK..KFFFK',
+  '.KKK....KKK.',
+];
 function drawBone(c, x, y, size, color) {
-  c.fillStyle = color;
   const s = Math.max(1, Math.floor(size / 8));
-  // Simple bone shape: two end bulges + shaft
-  // End bulges (circles approximated by squares)
-  c.fillRect(x - 3*s, y - 2*s, 2*s, 2*s);
-  c.fillRect(x - 4*s, y - 1*s, s, 2*s);
-  c.fillRect(x - 3*s, y + 0*s, 2*s, 2*s);
-  c.fillRect(x + 1*s, y - 2*s, 2*s, 2*s);
-  c.fillRect(x + 3*s, y - 1*s, s, 2*s);
-  c.fillRect(x + 1*s, y + 0*s, 2*s, 2*s);
-  // Shaft
-  c.fillRect(x - 2*s, y - 1*s, 4*s, 2*s);
-  // Outline
-  c.fillStyle = PAL.ink;
-  c.fillRect(x - 4*s, y - 2*s, s, s);
-  c.fillRect(x + 3*s, y - 2*s, s, s);
-  c.fillRect(x - 4*s, y + 2*s - s, s, s);
-  c.fillRect(x + 3*s, y + 2*s - s, s, s);
+  const w = BONE_PATTERN[0].length;
+  const h = BONE_PATTERN.length;
+  const x0 = Math.round(x - (w * s) / 2);
+  const y0 = Math.round(y - (h * s) / 2);
+  for (let py = 0; py < h; py++) {
+    const row = BONE_PATTERN[py];
+    for (let px = 0; px < w; px++) {
+      const ch = row[px];
+      if (ch === '.') continue;
+      c.fillStyle = ch === 'K' ? PAL.ink : color;
+      c.fillRect(x0 + px * s, y0 + py * s, s, s);
+    }
+  }
 }
 
 // =============================================================================
