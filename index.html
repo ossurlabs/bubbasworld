@@ -411,6 +411,7 @@
     <h1>BUBBA'S<br>TWO WORLDS</h1>
     <p class="subtitle">a game about a dog with two eyes (both mine)</p>
     <button class="btn pulse" id="start-btn">LET ME IN</button>
+    <p id="vol-subtitle" style="font-family: 'Courier New', monospace; font-size: 9px; color: var(--amber); letter-spacing: 0.05em; margin-top: 10px;"></p>
     <p class="micro">made with love by bubba's human</p>
   </div>
 
@@ -896,12 +897,36 @@ async function loadLevels() {
     const manifestRes = await fetch('levels/manifest.json');
     if (!manifestRes.ok) throw new Error('manifest ' + manifestRes.status);
     const manifest = await manifestRes.json();
-    const vol = manifest.volumes[0];
+
+    // Current Volume = manifest entry with the most recent past released date (local clock).
+    const now = new Date();
+    const localToday = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+    const past = manifest.volumes.filter(v => v.released <= localToday);
+    const vol = past.length
+      ? past.reduce((a, b) => (b.released > a.released ? b : a))
+      : manifest.volumes[0];
+    const volNum = manifest.volumes.indexOf(vol) + 1;
+
     const packRes = await fetch('levels/' + vol.file);
     if (!packRes.ok) throw new Error(vol.file + ' ' + packRes.status);
     const pack = await packRes.json();
     LEVELS = pack.levels;
     levelsReady = true;
+
+    // Home-screen Volume indicator: repurpose the two HUD pills + subtitle under LET ME IN.
+    // beginPlay() reverts these back to gameplay UI when a level loads.
+    document.getElementById('treat-icon').style.display = 'none';
+    document.getElementById('treat-count').textContent = `VOL ${volNum}`;
+    const levelPill = document.getElementById('level-pill');
+    if (vol.released === localToday) {
+      const [, mm, dd] = vol.released.split('-');
+      levelPill.textContent = `NEW · ${mm}.${dd}`;
+    } else {
+      levelPill.style.display = 'none';
+    }
+    document.getElementById('vol-subtitle').textContent = `▸ ${vol.title.toUpperCase()} · 5 NEW LEVELS`;
+    document.getElementById('hud').classList.remove('hidden');
+
     if (pendingStart) {
       pendingStart = false;
       const btn = document.getElementById('start-btn');
@@ -1528,6 +1553,9 @@ function beginPlay() {
   state.mode = 'play';
   document.getElementById('hud').classList.remove('hidden');
   document.getElementById('controls').classList.remove('hidden');
+  // Revert home-screen pill repurposing back to gameplay UI.
+  document.getElementById('treat-icon').style.display = '';
+  document.getElementById('level-pill').style.display = '';
   document.getElementById('level-pill').textContent = `LEVEL ${state.levelIdx + 1}/5`;
   updateHUD();
 }
