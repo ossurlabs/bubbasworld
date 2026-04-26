@@ -5,7 +5,7 @@
   "levels": [
     {
       "name": "THE BEACH",
-      "intro": "SAND. SO MUCH SAND. WHY IS IT IN MY MOUTH. ALSO. THE OCEAN. THAT'S A LOT OF WATER. STAY AWAY FROM THE WATER.",
+      "intro": "OKAY OKAY OKAY WATCH THIS. I TURN RIGHT = ORANGE BRICKS. I TURN LEFT = BLUE BRICKS. IT'S ME. I DO THIS.",
       "start": { "x": 30, "y": 580 },
       "platforms": [
         { "x": 0,   "y": 650, "w": 240, "h": 50, "color": "white" },
