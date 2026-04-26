@@ -11,16 +11,17 @@ Live at https://bubbasworld.vercel.app · Bubba on Instagram: @mrbubbaganoush
 
 - One `index.html` with inline `<style>` and `<script>`. No build tools. No npm. Vanilla JS, HTML5 canvas, ~2,000 lines.
 - Hosted on Vercel. Pushes to `main` auto-deploy.
-- Phase 2A introduces a `/levels/` directory: `manifest.json` plus per-week JSON files (`week-01.json`, `week-02.json`, …) loaded at runtime via `fetch`. See the architecture doc for the schema.
+- Phase 2A introduces a `/levels/` directory: `manifest.json` plus per-Volume JSON files (`vol-01.json`, `vol-02.json`, …) loaded at runtime via `fetch`. See the architecture doc for the schema.
 - `localStorage` is the only persistence layer for Phase 2A. No backend yet.
 
 ## Locked design decisions — do not re-litigate without asking
 
 - Core mechanic — orange platforms appear when Bubba faces right, blue when facing left — is untouched. This is the soul of the game. Phase 2 adds depth, not new rules.
-- Weekly drop content model: 5 new levels per week, episodic, not procedural, not endless.
-- Previous-weeks archive is first-class. Every drop stays playable forever via the level select screen.
-- Difficulty within a week ramps steadily to a climactic Level 5. No "easy reward" or "silly palate cleanser" level mid-pack.
-- Level 5 of week 1 (vacuum boss) is not being rebalanced. Its difficulty is correct and is the model for future climaxes.
+- Weekly drop content model: 5 new levels every Monday, episodic, not procedural, not endless. Each weekly drop is a **Volume** (e.g. "Vol 2 · Adventures").
+- Level numbering is per-Volume local: each Volume always has L1–L5. No global numbering. UI shows "VOL N." Data IDs are `vol-NN`. Reference shorthand for a specific level: `V{n}-L{1-5}` (e.g., V2-L3).
+- Volume archive is first-class. Every Volume stays playable forever via the level select screen.
+- Difficulty within a Volume ramps steadily to a climactic Level 5. No "easy reward" or "silly palate cleanser" level mid-pack.
+- Level 5 of Volume 1 (vacuum boss) is not being rebalanced. Its difficulty is correct and is the model for future climaxes.
 - Backend (Supabase auth, leaderboard, cloud save) is deferred to Phase 2B. Phase 2A is static-only.
 
 ## Voice and style

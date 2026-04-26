@@ -119,7 +119,7 @@
     },
     {
       "name": "BONE QUEST",
-      "intro": "BONES. SO MANY BONES. THESE ARE ALL MINE. EVERY SINGLE ONE. WAIT. DAD. DAD HAS THE TRASH BAG. NO. NO NO NO.",
+      "intro": "BONES. SO MANY BONES. THESE ARE ALL MINE. EVERY SINGLE ONE. WAIT. WAIT THAT NOISE. THE VACUUM. NOT NOW. NOT WHILE I HAVE THE BONES.",
       "start": { "x": 20, "y": 580 },
       "platforms": [
         { "x": 0,   "y": 650, "w": 400, "h": 50, "color": "white" },
