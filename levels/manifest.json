@@ -1,6 +1,6 @@
 {
-  "weeks": [
-    { "id": "week-01", "title": "Origin", "released": "2026-04-26", "theme": "tutorial → vacuum", "file": "week-01.json" },
-    { "id": "week-02", "title": "Adventures", "released": "2026-05-03", "theme": "beach → dog park → squirrels → race home → bone hoard", "file": "week-02.json" }
+  "volumes": [
+    { "id": "vol-01", "title": "Origin", "released": "2026-04-20", "theme": "tutorial → vacuum", "file": "vol-01.json" },
+    { "id": "vol-02", "title": "Adventures", "released": "2026-04-27", "theme": "beach → dog park → squirrels → race home → bone hoard", "file": "vol-02.json" }
   ]
 }

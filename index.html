@@ -883,10 +883,10 @@ const sfx = {
 // Enemies: squirrels patrol between x1 and x2 at y
 // =============================================================================
 
-// Level data lives in /levels/ — manifest.json indexes weekly drops, and each
-// week-XX.json holds 5 level objects matching the schema below.
+// Level data lives in /levels/ — manifest.json indexes Volume drops, and each
+// vol-XX.json holds 5 level objects matching the schema below.
 // Schema + rationale: docs/PHASE_2_ARCHITECTURE.md §6.5
-// To ship a new pack: drop a week-XX.json + append one entry to manifest.json.
+// To ship a new pack: drop a vol-XX.json + append one entry to manifest.json.
 let LEVELS = [];
 let levelsReady = false;
 let pendingStart = false;
@@ -896,9 +896,9 @@ async function loadLevels() {
     const manifestRes = await fetch('levels/manifest.json');
     if (!manifestRes.ok) throw new Error('manifest ' + manifestRes.status);
     const manifest = await manifestRes.json();
-    const week = manifest.weeks[0];
-    const packRes = await fetch('levels/' + week.file);
-    if (!packRes.ok) throw new Error(week.file + ' ' + packRes.status);
+    const vol = manifest.volumes[0];
+    const packRes = await fetch('levels/' + vol.file);
+    if (!packRes.ok) throw new Error(vol.file + ' ' + packRes.status);
     const pack = await packRes.json();
     LEVELS = pack.levels;
     levelsReady = true;
