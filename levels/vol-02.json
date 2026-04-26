@@ -5,7 +5,7 @@
   "levels": [
     {
       "name": "THE BEACH",
-      "intro": "OKAY OKAY OKAY WATCH THIS. I TURN RIGHT = ORANGE BRICKS. I TURN LEFT = BLUE BRICKS. IT'S ME. I DO THIS.",
+      "intro": "WELCOME TO THE BEACH IN MY MIND. RIGHT = ORANGE. LEFT = BLUE. THE WAVES ARE METAPHORICAL.",
       "start": { "x": 30, "y": 580 },
       "platforms": [
         { "x": 0,   "y": 650, "w": 240, "h": 50, "color": "white" },
