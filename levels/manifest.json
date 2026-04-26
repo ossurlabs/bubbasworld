@@ -1,0 +1,5 @@
+{
+  "weeks": [
+    { "id": "week-01", "title": "Origin", "released": "2026-04-26", "theme": "tutorial → vacuum", "file": "week-01.json" }
+  ]
+}
