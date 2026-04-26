@@ -1,0 +1,154 @@
+{
+  "id": "week-02",
+  "title": "Adventures",
+  "intro": "WEEK TWO. ADVENTURES UPON ADVENTURES. THE COUCH WILL HAVE TO WAIT.",
+  "levels": [
+    {
+      "name": "THE BEACH",
+      "intro": "SAND. SO MUCH SAND. WHY IS IT IN MY MOUTH. ALSO. THE OCEAN. THAT'S A LOT OF WATER. STAY AWAY FROM THE WATER.",
+      "start": { "x": 30, "y": 580 },
+      "platforms": [
+        { "x": 0,   "y": 650, "w": 240, "h": 50, "color": "white" },
+        { "x": 300, "y": 650, "w": 100, "h": 50, "color": "white" },
+        { "x": 160, "y": 570, "w": 120, "h": 18, "color": "amber" },
+        { "x": 30,  "y": 480, "w": 130, "h": 18, "color": "blue" },
+        { "x": 200, "y": 390, "w": 140, "h": 18, "color": "amber" },
+        { "x": 140, "y": 300, "w": 120, "h": 18, "color": "white" }
+      ],
+      "hazards": [
+        { "x": 240, "y": 690, "w": 60, "h": 10 }
+      ],
+      "treats": [
+        { "x": 330, "y": 600 },
+        { "x": 220, "y": 530 },
+        { "x": 90,  "y": 440 },
+        { "x": 270, "y": 350 },
+        { "x": 200, "y": 260 }
+      ],
+      "goalY": 300
+    },
+    {
+      "name": "DOG PARK",
+      "intro": "OKAY EVERYBODY LISTEN UP. I AM IN CHARGE NOW. THESE ARE MY GUYS. THEY DON'T KNOW IT YET BUT THEY ARE.",
+      "start": { "x": 30, "y": 580 },
+      "platforms": [
+        { "x": 0,   "y": 650, "w": 400, "h": 50, "color": "white" },
+        { "x": 230, "y": 560, "w": 120, "h": 18, "color": "amber" },
+        { "x": 50,  "y": 480, "w": 130, "h": 18, "color": "blue" },
+        { "x": 230, "y": 400, "w": 120, "h": 18, "color": "amber" },
+        { "x": 40,  "y": 320, "w": 130, "h": 18, "color": "blue" },
+        { "x": 200, "y": 240, "w": 140, "h": 18, "color": "amber" },
+        { "x": 140, "y": 160, "w": 120, "h": 18, "color": "white" }
+      ],
+      "enemies": [
+        { "type": "squirrel", "x1": 240, "x2": 340, "y": 544, "speed": 1.2, "dir": -1 }
+      ],
+      "treats": [
+        { "x": 285, "y": 520 },
+        { "x": 115, "y": 440 },
+        { "x": 290, "y": 360 },
+        { "x": 105, "y": 280 },
+        { "x": 265, "y": 200 },
+        { "x": 200, "y": 120 }
+      ],
+      "goalY": 160
+    },
+    {
+      "name": "SQUIRREL ENCOUNTER 2",
+      "intro": "I WARNED THEM. I WARNED THEM AND THEY DID NOT LISTEN. NOW THERE ARE MORE. THEY HAVE FORMATIONS.",
+      "start": { "x": 30, "y": 580 },
+      "platforms": [
+        { "x": 0,   "y": 650, "w": 400, "h": 50, "color": "white" },
+        { "x": 0,   "y": 560, "w": 160, "h": 18, "color": "blue" },
+        { "x": 240, "y": 560, "w": 160, "h": 18, "color": "amber" },
+        { "x": 60,  "y": 470, "w": 130, "h": 18, "color": "amber" },
+        { "x": 230, "y": 470, "w": 130, "h": 18, "color": "blue" },
+        { "x": 0,   "y": 380, "w": 160, "h": 18, "color": "blue" },
+        { "x": 240, "y": 380, "w": 160, "h": 18, "color": "amber" },
+        { "x": 60,  "y": 290, "w": 130, "h": 18, "color": "amber" },
+        { "x": 230, "y": 290, "w": 130, "h": 18, "color": "blue" },
+        { "x": 140, "y": 190, "w": 120, "h": 18, "color": "white" }
+      ],
+      "enemies": [
+        { "type": "squirrel", "x1": 0,   "x2": 138, "y": 544, "speed": 1.0, "dir": 1 },
+        { "type": "squirrel", "x1": 240, "x2": 338, "y": 454, "speed": 1.4, "dir": -1 },
+        { "type": "squirrel", "x1": 0,   "x2": 138, "y": 364, "speed": 1.2, "dir": 1 },
+        { "type": "squirrel", "x1": 240, "x2": 338, "y": 274, "speed": 1.5, "dir": -1 }
+      ],
+      "treats": [
+        { "x": 80,  "y": 520 },
+        { "x": 320, "y": 520 },
+        { "x": 120, "y": 430 },
+        { "x": 295, "y": 430 },
+        { "x": 80,  "y": 340 },
+        { "x": 320, "y": 340 },
+        { "x": 295, "y": 250 },
+        { "x": 200, "y": 150 }
+      ],
+      "goalY": 190
+    },
+    {
+      "name": "MOM'S COMING HOME",
+      "intro": "KEY IN DOOR. KEY IN DOOR!! GO GO GO GO GO. SHE CAN'T SEE ME LIKE THIS. THE COUCH. SHE CAN NEVER KNOW ABOUT THE COUCH.",
+      "start": { "x": 30, "y": 580 },
+      "platforms": [
+        { "x": 0,   "y": 650, "w": 120, "h": 50, "color": "white" },
+        { "x": 280, "y": 650, "w": 120, "h": 50, "color": "white" },
+        { "x": 200, "y": 570, "w": 110, "h": 16, "color": "amber" },
+        { "x": 50,  "y": 490, "w": 110, "h": 16, "color": "blue" },
+        { "x": 200, "y": 410, "w": 110, "h": 16, "color": "amber" },
+        { "x": 50,  "y": 330, "w": 110, "h": 16, "color": "blue" },
+        { "x": 200, "y": 250, "w": 110, "h": 16, "color": "amber" },
+        { "x": 50,  "y": 170, "w": 110, "h": 16, "color": "blue" },
+        { "x": 150, "y": 90,  "w": 100, "h": 16, "color": "white" }
+      ],
+      "hazards": [
+        { "x": 120, "y": 690, "w": 160, "h": 10 }
+      ],
+      "treats": [
+        { "x": 255, "y": 530 },
+        { "x": 105, "y": 450 },
+        { "x": 255, "y": 370 },
+        { "x": 105, "y": 290 },
+        { "x": 255, "y": 210 },
+        { "x": 105, "y": 130 },
+        { "x": 200, "y": 50 }
+      ],
+      "vacuum": { "x": 200, "y": 630, "w": 90, "h": 40, "speed": 1.1, "dir": -1, "range": 45 },
+      "goalY": 40
+    },
+    {
+      "name": "BONE QUEST",
+      "intro": "BONES. SO MANY BONES. THESE ARE ALL MINE. EVERY SINGLE ONE. WAIT. DAD. DAD HAS THE TRASH BAG. NO. NO NO NO.",
+      "start": { "x": 20, "y": 580 },
+      "platforms": [
+        { "x": 0,   "y": 650, "w": 400, "h": 50, "color": "white" },
+        { "x": 240, "y": 560, "w": 110, "h": 14, "color": "amber" },
+        { "x": 50,  "y": 490, "w": 110, "h": 14, "color": "blue" },
+        { "x": 240, "y": 420, "w": 110, "h": 14, "color": "amber" },
+        { "x": 50,  "y": 350, "w": 110, "h": 14, "color": "blue" },
+        { "x": 240, "y": 280, "w": 110, "h": 14, "color": "amber" },
+        { "x": 50,  "y": 210, "w": 110, "h": 14, "color": "blue" },
+        { "x": 240, "y": 140, "w": 110, "h": 14, "color": "amber" },
+        { "x": 50,  "y": 70,  "w": 110, "h": 14, "color": "blue" },
+        { "x": 150, "y": 30,  "w": 100, "h": 14, "color": "white" }
+      ],
+      "treats": [
+        { "x": 270, "y": 520 },
+        { "x": 320, "y": 520 },
+        { "x": 80,  "y": 450 },
+        { "x": 130, "y": 450 },
+        { "x": 295, "y": 380 },
+        { "x": 105, "y": 310 },
+        { "x": 295, "y": 240 },
+        { "x": 105, "y": 170 },
+        { "x": 295, "y": 100 },
+        { "x": 105, "y": 30 },
+        { "x": 200, "y": 60 }
+      ],
+      "goldenTreat": { "x": 200, "y": 0 },
+      "vacuum": { "x": 250, "y": 630, "w": 110, "h": 40, "speed": 0.8, "dir": -1, "range": 60 },
+      "goalY": 30
+    }
+  ]
+}
