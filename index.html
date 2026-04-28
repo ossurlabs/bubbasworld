@@ -885,7 +885,11 @@ const sfx = {
 // Platforms: { x, y, w, h, color: 'amber' | 'blue' | 'white' }
 // Treats: { x, y, color: 'amber' | 'blue' | 'gold' }
 // Hazards: { x, y, w, h, type: 'lava' }
-// Enemies: squirrels patrol between x1 and x2 at y
+// Enemies: { type?, x1, x2, y, speed, dir }
+//   - default (squirrel): pure patrol between x1↔x2 at y
+//   - "big-dog": patrols AND charges when Bubba shares its row (within ~30px y)
+//                and is within chargeRange (default 120px). Charge boosts speed
+//                by chargeMult (default 2.5) for 700ms; 1500ms cooldown after.
 // =============================================================================
 
 // Level data lives in /levels/ — manifest.json indexes Volume drops, and each
@@ -1038,6 +1042,11 @@ function resetBubba() {
       if (e._startDir === undefined) e._startDir = e.dir;
       e.x = e._startX;
       e.dir = e._startDir;
+      if (e.type === 'big-dog') {
+        e._state = 'patrol';
+        e._chargeUntil = 0;
+        e._cooldownUntil = 0;
+      }
     });
   }
   if (lvl.vacuum) {
@@ -1142,20 +1151,51 @@ function updateBubba(dt) {
     }
   }
 
-  // Enemies (squirrels)
+  // Enemies
   if (lvl.enemies) {
     for (const e of lvl.enemies) {
-      e.x += e.speed * e.dir;
-      if (e.x <= e.x1) { e.x = e.x1; e.dir = 1; }
-      if (e.x >= e.x2) { e.x = e.x2; e.dir = -1; }
-      const eRect = { x: e.x, y: e.y, w: 22, h: 20 };
-      if (rectOverlap(b, eRect) && b.hitCooldown <= 0) {
-        // Bounce back, don't die — push out of overlap so it doesn't retrigger every frame
-        b.x += -b.facing * 10;
-        b.vy = -6;
-        b.hitCooldown = 24;
-        state.cameraShake = 8;
-        sfx.bounce();
+      if (e.type === 'big-dog') {
+        // Charging dog: patrols, then accelerates toward Bubba on same row.
+        const charging = e._state === 'charge';
+        const speed = charging ? e.speed * (e.chargeMult ?? 2.5) : e.speed;
+        e.x += speed * e.dir;
+        if (e.x <= e.x1) { e.x = e.x1; e.dir = 1; if (charging) { e._state = 'patrol'; e._cooldownUntil = state.time + 1500; } }
+        if (e.x >= e.x2) { e.x = e.x2; e.dir = -1; if (charging) { e._state = 'patrol'; e._cooldownUntil = state.time + 1500; } }
+        if (charging && state.time >= e._chargeUntil) {
+          e._state = 'patrol';
+          e._cooldownUntil = state.time + 1500;
+        } else if (!charging && state.time >= e._cooldownUntil) {
+          // Same row = both standing at the same platform top. Compare feet (b.y+b.h vs e.y+26).
+          const sameRow = Math.abs((b.y + b.h) - (e.y + 26)) < 24;
+          const inRange = Math.abs((b.x + b.w/2) - (e.x + 15)) < (e.chargeRange ?? 120);
+          if (sameRow && inRange) {
+            e._state = 'charge';
+            e._chargeUntil = state.time + 700;
+            e.dir = b.x < e.x ? -1 : 1;
+          }
+        }
+        const eRect = { x: e.x, y: e.y, w: 30, h: 26 };
+        if (rectOverlap(b, eRect) && b.hitCooldown <= 0) {
+          // Bigger bump than a squirrel
+          b.x += -b.facing * 14;
+          b.vy = -7;
+          b.hitCooldown = 30;
+          state.cameraShake = 12;
+          sfx.bounce();
+        }
+      } else {
+        // Squirrel: pure patrol
+        e.x += e.speed * e.dir;
+        if (e.x <= e.x1) { e.x = e.x1; e.dir = 1; }
+        if (e.x >= e.x2) { e.x = e.x2; e.dir = -1; }
+        const eRect = { x: e.x, y: e.y, w: 22, h: 20 };
+        if (rectOverlap(b, eRect) && b.hitCooldown <= 0) {
+          b.x += -b.facing * 10;
+          b.vy = -6;
+          b.hitCooldown = 24;
+          state.cameraShake = 8;
+          sfx.bounce();
+        }
       }
     }
   }
@@ -1333,7 +1373,8 @@ function renderLevel() {
   // Enemies
   if (lvl.enemies) {
     for (const e of lvl.enemies) {
-      drawSquirrel(e.x, e.y, e.dir);
+      if (e.type === 'big-dog') drawBigDog(e.x, e.y, e.dir, e._state === 'charge');
+      else drawSquirrel(e.x, e.y, e.dir);
     }
   }
 
@@ -1417,6 +1458,53 @@ function drawSquirrel(x, y, dir) {
   // Outline
   ctx.fillStyle = PAL.ink;
   ctx.fillRect(x + 2, y + 17, 18, 1);
+}
+
+function drawBigDog(x, y, dir, charging) {
+  // Hitbox is (x, y, 30, 26). Sprite drawn within those bounds, extending
+  // a few px above for the head/ears.
+  const right = dir > 0;
+  // Body
+  ctx.fillStyle = PAL.brown;
+  ctx.fillRect(x + 4, y + 8, 22, 14);
+  // Head — bigger than squirrel, positioned in facing direction
+  const headX = right ? x + 18 : x;
+  ctx.fillRect(headX, y + 2, 12, 12);
+  // Snout protruding forward
+  const snoutX = right ? x + 28 : x - 2;
+  ctx.fillRect(snoutX, y + 8, 4, 6);
+  // Floppy ear (droops down beside head)
+  ctx.fillStyle = '#5a3a22';
+  ctx.fillRect(right ? x + 17 : x + 9, y, 4, 8);
+  // Legs (4)
+  ctx.fillStyle = PAL.ink;
+  ctx.fillRect(x + 6,  y + 22, 4, 4);
+  ctx.fillRect(x + 12, y + 22, 4, 4);
+  ctx.fillRect(x + 18, y + 22, 4, 4);
+  ctx.fillRect(x + 24, y + 22, 4, 4);
+  // Tail stub
+  ctx.fillStyle = PAL.brown;
+  const tailX = right ? x : x + 26;
+  ctx.fillRect(tailX, y + 6, 4, 4);
+  // Eye
+  ctx.fillStyle = charging ? '#d04030' : PAL.ink;
+  ctx.fillRect(right ? x + 26 : x + 2, y + 6, 2, 2);
+  // Charging tells: tongue + speed lines behind
+  if (charging) {
+    // Tongue
+    ctx.fillStyle = PAL.pink;
+    ctx.fillRect(right ? x + 30 : x - 2, y + 12, 3, 3);
+    // Speed lines behind the dog
+    ctx.fillStyle = PAL.ink;
+    const back = right ? x - 4 : x + 30;
+    const step = right ? -3 : 3;
+    ctx.fillRect(back,            y + 10, 3, 1);
+    ctx.fillRect(back + step,     y + 14, 3, 1);
+    ctx.fillRect(back + step * 2, y + 18, 3, 1);
+  }
+  // Ground shadow line
+  ctx.fillStyle = PAL.ink;
+  ctx.fillRect(x + 4, y + 25, 22, 1);
 }
 
 function drawVacuum(v) {
