@@ -376,6 +376,151 @@
     image-rendering: crisp-edges;
   }
 
+  /* Archive screens (PREVIOUS VOLUMES + per-volume level grid) */
+  #archive, #volume-detail {
+    justify-content: flex-start;
+    padding-top: 28px;
+    padding-bottom: 22px;
+  }
+
+  .archive-eyebrow {
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    color: var(--amber);
+    letter-spacing: 0.12em;
+    margin: 4px 0 0;
+    opacity: 0.9;
+  }
+
+  .archive-scroll {
+    flex: 1;
+    width: 100%;
+    max-width: 320px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 4px 6px 4px 0;
+    margin: 14px 0;
+  }
+
+  .vol-card,
+  .level-row {
+    display: block;
+    width: 100%;
+    text-align: left;
+    background: rgba(26, 26, 26, 0.55);
+    border: 3px solid var(--cream);
+    color: var(--cream);
+    font-family: 'Courier New', monospace;
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+    box-shadow: 4px 4px 0 var(--ink);
+    transition: transform 0.06s, box-shadow 0.06s;
+  }
+
+  .vol-card { padding: 14px 16px; margin: 0 0 12px; }
+  .vol-card:last-child, .level-row:last-child { margin-bottom: 4px; }
+
+  .vol-card:active,
+  .level-row:active {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 var(--ink);
+  }
+
+  .vol-card .vol-num {
+    font-size: 11px;
+    color: var(--amber);
+    letter-spacing: 0.12em;
+    font-weight: 900;
+  }
+
+  .vol-card .vol-title {
+    font-size: 18px;
+    font-weight: 900;
+    letter-spacing: 0.04em;
+    margin: 2px 0 6px;
+  }
+
+  .vol-card .vol-theme {
+    font-size: 11px;
+    color: var(--cream);
+    opacity: 0.65;
+    line-height: 1.35;
+    margin-bottom: 8px;
+  }
+
+  .vol-card .vol-progress {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    font-weight: 900;
+    color: var(--cream);
+  }
+
+  .vol-card.complete .vol-progress { color: var(--amber); }
+
+  .vol-card .paw,
+  .vol-progress .paw {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+  }
+
+  .level-row {
+    display: flex;
+    align-items: center;
+    padding: 12px 14px;
+    margin: 0 0 8px;
+  }
+
+  .level-row .lvl-num {
+    font-size: 11px;
+    color: var(--amber);
+    letter-spacing: 0.1em;
+    font-weight: 900;
+    min-width: 36px;
+  }
+
+  .level-row .lvl-name {
+    flex: 1;
+    font-size: 13px;
+    font-weight: 700;
+    margin: 0 8px;
+    letter-spacing: 0.02em;
+  }
+
+  .level-row .lvl-check {
+    font-size: 16px;
+    font-weight: 900;
+    color: var(--amber);
+    min-width: 16px;
+    text-align: right;
+  }
+
+  .archive-empty {
+    color: var(--cream);
+    opacity: 0.6;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    padding: 12px 0;
+  }
+
+  .btn.tertiary {
+    background: transparent;
+    color: var(--cream);
+    border-color: var(--cream);
+    box-shadow: 0 4px 0 rgba(239, 233, 217, 0.35), 0 6px 0 var(--ink);
+    padding: 10px 22px;
+    font-size: clamp(13px, 3.4vw, 15px);
+  }
+
+  .btn.tertiary:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 rgba(239, 233, 217, 0.35), 0 4px 0 var(--ink);
+  }
+
   /* Prevent double tap zoom on buttons */
   button, a { touch-action: manipulation; }
 </style>
@@ -416,7 +561,25 @@
     <p class="subtitle">a game about a dog with two eyes (both mine)</p>
     <button class="btn pulse" id="start-btn">LET ME IN</button>
     <p id="vol-subtitle" style="font-family: 'Courier New', monospace; font-size: 9px; color: var(--amber); letter-spacing: 0.05em; margin-top: 10px;"></p>
+    <button class="btn tertiary" id="archive-btn" style="display: none; margin-top: 14px;">PREVIOUS VOLUMES →</button>
     <p class="micro">made with love by bubba's human</p>
+  </div>
+
+  <!-- Archive: list of all released Volumes -->
+  <div class="screen hidden" id="archive">
+    <h2 style="margin-bottom: 2px;">PREVIOUS VOLUMES</h2>
+    <p class="archive-eyebrow">GO BACK IN TIME · REPLAY OLD STUFF</p>
+    <div class="archive-scroll" id="archive-list"></div>
+    <button class="btn tertiary" id="archive-back">← BACK</button>
+  </div>
+
+  <!-- Volume detail: 5 levels of one Volume -->
+  <div class="screen hidden" id="volume-detail">
+    <p class="archive-eyebrow" id="vol-detail-num">VOL 1</p>
+    <h2 id="vol-detail-title" style="margin-bottom: 4px;">ORIGIN</h2>
+    <p id="vol-detail-intro" style="font-family: 'Courier New', monospace; font-size: 11px; opacity: 0.7; letter-spacing: 0.04em; line-height: 1.4; max-width: 88%; margin: 0;"></p>
+    <div class="archive-scroll" id="level-list"></div>
+    <button class="btn tertiary" id="vol-detail-back">← VOLUMES</button>
   </div>
 
   <!-- Level intro -->
@@ -454,6 +617,7 @@
     <p class="subtitle">all 5 worlds conquered.<br>treat quota: <strong style="color: var(--amber);">EXCEEDED</strong></p>
     <button class="btn" id="share-btn">SHARE BUBBA</button>
     <button class="btn secondary" id="replay-btn">PLAY AGAIN</button>
+    <button class="btn tertiary" id="win-archive-btn">← VOLUMES</button>
     <p class="micro">follow the real bubba → <a href="https://instagram.com/mrbubbaganoush" target="_blank" rel="noopener" class="insta-link">@mrbubbaganoush</a></p>
   </div>
 
@@ -898,48 +1062,92 @@ const sfx = {
 // To ship a new pack: drop a vol-XX.json + append one entry to manifest.json.
 let LEVELS = [];
 let levelsReady = false;
+let manifestReady = false;
 let pendingStart = false;
+let pendingArchive = false;
+let ALL_VOLUMES = [];        // manifest entries in original order
+let currentVol = null;       // manifest entry for the Volume currently in LEVELS
+const VOLUME_PACK_CACHE = {}; // volId -> parsed vol-XX.json
 
-async function loadLevels() {
+function todayStr() {
+  const now = new Date();
+  return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+}
+
+function pickCurrentVolume(volumes, today) {
+  const past = volumes.filter(v => v.released <= today);
+  if (!past.length) return volumes[0];
+  return past.reduce((a, b) => (b.released > a.released ? b : a));
+}
+
+async function loadVolumePack(volMeta) {
+  if (VOLUME_PACK_CACHE[volMeta.id]) return VOLUME_PACK_CACHE[volMeta.id];
+  const res = await fetch('levels/' + volMeta.file);
+  if (!res.ok) throw new Error(volMeta.file + ' ' + res.status);
+  const pack = await res.json();
+  VOLUME_PACK_CACHE[volMeta.id] = pack;
+  return pack;
+}
+
+async function activateVolume(volMeta) {
+  const pack = await loadVolumePack(volMeta);
+  LEVELS = pack.levels;
+  currentVol = volMeta;
+  levelsReady = true;
+  return pack;
+}
+
+// Home-screen Volume indicator: repurpose the two HUD pills + subtitle under LET ME IN.
+// beginPlay() reverts these back to gameplay UI when a level loads, so we re-apply
+// this each time the title screen is reshown (e.g. after backing out of archive).
+function applyHomePills() {
+  const today = todayStr();
+  const vol = pickCurrentVolume(ALL_VOLUMES, today);
+  if (!vol) return;
+  const volNum = ALL_VOLUMES.indexOf(vol) + 1;
+
+  document.getElementById('treat-icon').style.display = 'none';
+  document.getElementById('treat-count').textContent = `VOL ${volNum}`;
+  const levelPill = document.getElementById('level-pill');
+  if (vol.released === today) {
+    const [, mm, dd] = vol.released.split('-');
+    levelPill.textContent = `NEW · ${mm}.${dd}`;
+    levelPill.style.display = '';
+  } else {
+    levelPill.style.display = 'none';
+  }
+  document.getElementById('vol-subtitle').textContent = `▸ ${vol.title.toUpperCase()} · 5 NEW LEVELS`;
+}
+
+async function bootLoad() {
   try {
     const manifestRes = await fetch('levels/manifest.json');
     if (!manifestRes.ok) throw new Error('manifest ' + manifestRes.status);
     const manifest = await manifestRes.json();
+    ALL_VOLUMES = manifest.volumes;
+    manifestReady = true;
 
-    // Current Volume = manifest entry with the most recent past released date (local clock).
-    const now = new Date();
-    const localToday = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
-    const past = manifest.volumes.filter(v => v.released <= localToday);
-    const vol = past.length
-      ? past.reduce((a, b) => (b.released > a.released ? b : a))
-      : manifest.volumes[0];
-    const volNum = manifest.volumes.indexOf(vol) + 1;
+    const localToday = todayStr();
+    const vol = pickCurrentVolume(ALL_VOLUMES, localToday);
+    await activateVolume(vol);
 
-    const packRes = await fetch('levels/' + vol.file);
-    if (!packRes.ok) throw new Error(vol.file + ' ' + packRes.status);
-    const pack = await packRes.json();
-    LEVELS = pack.levels;
-    levelsReady = true;
-
-    // Home-screen Volume indicator: repurpose the two HUD pills + subtitle under LET ME IN.
-    // beginPlay() reverts these back to gameplay UI when a level loads.
-    document.getElementById('treat-icon').style.display = 'none';
-    document.getElementById('treat-count').textContent = `VOL ${volNum}`;
-    const levelPill = document.getElementById('level-pill');
-    if (vol.released === localToday) {
-      const [, mm, dd] = vol.released.split('-');
-      levelPill.textContent = `NEW · ${mm}.${dd}`;
-    } else {
-      levelPill.style.display = 'none';
-    }
-    document.getElementById('vol-subtitle').textContent = `▸ ${vol.title.toUpperCase()} · 5 NEW LEVELS`;
+    applyHomePills();
     document.getElementById('hud').classList.remove('hidden');
+
+    // Archive button is hidden until manifest loads (we need it to populate).
+    const archiveBtn = document.getElementById('archive-btn');
+    if (archiveBtn) archiveBtn.style.display = '';
 
     if (pendingStart) {
       pendingStart = false;
       const btn = document.getElementById('start-btn');
       if (btn) btn.textContent = 'LET ME IN';
       startLevel(0);
+    }
+    if (pendingArchive) {
+      pendingArchive = false;
+      if (archiveBtn) archiveBtn.textContent = 'PREVIOUS VOLUMES →';
+      openArchive();
     }
   } catch (err) {
     console.error('level load failed', err);
@@ -952,7 +1160,145 @@ async function loadLevels() {
   }
 }
 
-loadLevels();
+bootLoad();
+
+// =============================================================================
+// PROGRESS PERSISTENCE — localStorage keys per architecture doc §6.5
+//   bubba.cleared            { "vol-01/0": true, ... }
+//   bubba.volumesCompleted   ["vol-01", ...]   (all 5 levels cleared)
+// `bubba.bestTimes` will be added when T2 (speedrun timer) ships.
+// =============================================================================
+function getCleared() {
+  try { return JSON.parse(localStorage.getItem('bubba.cleared') || '{}'); }
+  catch { return {}; }
+}
+function getVolumesCompleted() {
+  try { return JSON.parse(localStorage.getItem('bubba.volumesCompleted') || '[]'); }
+  catch { return []; }
+}
+function volumeProgress(volId) {
+  const m = getCleared();
+  let n = 0;
+  for (let i = 0; i < 5; i++) if (m[`${volId}/${i}`]) n++;
+  return n;
+}
+function markCleared(volId, levelIdx) {
+  const m = getCleared();
+  const key = `${volId}/${levelIdx}`;
+  if (m[key]) return;
+  m[key] = true;
+  try { localStorage.setItem('bubba.cleared', JSON.stringify(m)); } catch {}
+
+  const allClear = [0, 1, 2, 3, 4].every(i => m[`${volId}/${i}`]);
+  if (allClear) {
+    const done = getVolumesCompleted();
+    if (!done.includes(volId)) {
+      done.push(volId);
+      try { localStorage.setItem('bubba.volumesCompleted', JSON.stringify(done)); } catch {}
+    }
+  }
+}
+
+// =============================================================================
+// ARCHIVE UI
+// =============================================================================
+const PAW_SVG = '<svg class="paw" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><ellipse cx="8" cy="11" rx="4.6" ry="3.2"/><circle cx="3.4" cy="6.6" r="1.6"/><circle cx="12.6" cy="6.6" r="1.6"/><circle cx="6.4" cy="3.4" r="1.4"/><circle cx="9.6" cy="3.4" r="1.4"/></svg>';
+
+function formatReleaseDate(d) {
+  const parts = d.split('-');
+  return parts.length === 3 ? `${parts[1]}.${parts[2]}` : d;
+}
+
+function buildArchiveList() {
+  const list = document.getElementById('archive-list');
+  list.innerHTML = '';
+  const today = todayStr();
+  const items = ALL_VOLUMES
+    .map((v, i) => ({ vol: v, num: i + 1 }))
+    .filter(({ vol }) => vol.released <= today)
+    .sort((a, b) => b.vol.released.localeCompare(a.vol.released));
+
+  if (!items.length) {
+    list.innerHTML = '<p class="archive-empty">NOTHING YET. CHECK BACK MONDAY.</p>';
+    return;
+  }
+
+  items.forEach(({ vol, num }) => {
+    const cleared = volumeProgress(vol.id);
+    const isComplete = cleared === 5;
+    const card = document.createElement('button');
+    card.className = 'vol-card' + (isComplete ? ' complete' : '');
+    const progressLine = isComplete
+      ? `${PAW_SVG}<span>GOOD BOY · 5/5</span>`
+      : (cleared > 0 ? `<span>${cleared}/5 CLEARED</span>` : '<span>FRESH MEAT</span>');
+    const themeLine = vol.theme ? `<div class="vol-theme">${vol.theme}</div>` : '';
+    card.innerHTML = `
+      <div class="vol-num">VOL ${num} · ${formatReleaseDate(vol.released)}</div>
+      <div class="vol-title">${vol.title.toUpperCase()}</div>
+      ${themeLine}
+      <div class="vol-progress">${progressLine}</div>
+    `;
+    card.addEventListener('click', () => openVolumeDetail(vol, num));
+    list.appendChild(card);
+  });
+}
+
+function openArchive() {
+  if (!manifestReady) return;
+  buildArchiveList();
+  hideAllScreens();
+  document.getElementById('archive').classList.remove('hidden');
+  document.getElementById('hud').classList.add('hidden');
+  state.mode = 'archive';
+}
+
+async function openVolumeDetail(volMeta, volNum) {
+  document.getElementById('vol-detail-num').textContent = `VOL ${volNum} · ${formatReleaseDate(volMeta.released)}`;
+  document.getElementById('vol-detail-title').textContent = volMeta.title.toUpperCase();
+  document.getElementById('vol-detail-intro').textContent = '';
+  const list = document.getElementById('level-list');
+  list.innerHTML = '<p class="archive-empty">SNIFFING...</p>';
+  hideAllScreens();
+  document.getElementById('volume-detail').classList.remove('hidden');
+  document.getElementById('hud').classList.add('hidden');
+  state.mode = 'volume-detail';
+
+  let pack;
+  try {
+    pack = await loadVolumePack(volMeta);
+  } catch (e) {
+    console.error('volume load failed', e);
+    list.innerHTML = '<p class="archive-empty" style="color: var(--blue);">LEVELS DIDN\'T LOAD. RELOAD PLEASE.</p>';
+    return;
+  }
+
+  document.getElementById('vol-detail-intro').textContent = pack.intro || '';
+  list.innerHTML = '';
+  const cleared = getCleared();
+  pack.levels.forEach((lvl, idx) => {
+    const isCleared = !!cleared[`${volMeta.id}/${idx}`];
+    const row = document.createElement('button');
+    row.className = 'level-row';
+    row.innerHTML = `
+      <div class="lvl-num">L${idx + 1}</div>
+      <div class="lvl-name">${lvl.name}</div>
+      <div class="lvl-check">${isCleared ? '✓' : ''}</div>
+    `;
+    row.addEventListener('click', async () => {
+      await activateVolume(volMeta);
+      startLevel(idx);
+    });
+    list.appendChild(row);
+  });
+}
+
+function backToTitle() {
+  hideAllScreens();
+  applyHomePills();
+  document.getElementById('title').classList.remove('hidden');
+  document.getElementById('hud').classList.remove('hidden');
+  state.mode = 'title';
+}
 
 // =============================================================================
 // GAME STATE
@@ -1667,6 +2013,7 @@ function completeLevel() {
   if (state.mode !== 'play') return;
   state.mode = 'complete';
   sfx.complete();
+  if (currentVol) markCleared(currentVol.id, state.levelIdx);
   progress.totalTreats += state.treatsCollected.length + (state.goldenCollected ? 1 : 0);
   spawnParticles(state.bubba.x + state.bubba.w/2, state.bubba.y, 30, PAL.amber);
   spawnParticles(state.bubba.x + state.bubba.w/2, state.bubba.y, 20, PAL.blue);
@@ -1789,6 +2136,21 @@ document.getElementById('start-btn').addEventListener('click', () => {
     return;
   }
   startLevel(0);
+});
+document.getElementById('archive-btn').addEventListener('click', () => {
+  getAudio();
+  if (!manifestReady) {
+    pendingArchive = true;
+    document.getElementById('archive-btn').textContent = 'LOADING...';
+    return;
+  }
+  openArchive();
+});
+document.getElementById('archive-back').addEventListener('click', () => backToTitle());
+document.getElementById('vol-detail-back').addEventListener('click', () => openArchive());
+document.getElementById('win-archive-btn').addEventListener('click', () => {
+  progress.totalTreats = 0;
+  openArchive();
 });
 document.getElementById('intro-go').addEventListener('click', () => beginPlay());
 document.getElementById('retry-btn').addEventListener('click', () => beginPlay());
