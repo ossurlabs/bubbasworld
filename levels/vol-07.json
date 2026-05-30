@@ -1,0 +1,152 @@
+{
+  "id": "vol-07",
+  "title": "The Vet",
+  "intro": "MOM SAYS WE ARE GOING FOR A RIDE. I LOVE RIDES. I LOVE — wait. WAIT. THIS IS NOT THE PARK ROAD. THIS IS THE OTHER ROAD. THE BAD ROAD. THE ONE THAT SMELLS LIKE FEAR AND ALSO OTHER DOGS' FEAR.",
+  "levels": [
+    {
+      "name": "THE WAITING ROOM",
+      "intro": "THERE ARE OTHER DOGS IN HERE. THEY ARE ALSO SCARED. WE DO NOT TALK ABOUT IT. I AM SHAKING BUT IT IS A COOL SHAKE. A CASUAL SHAKE. A SHAKE OF A DOG WHO IS FINE.",
+      "start": { "x": 30, "y": 580 },
+      "platforms": [
+        { "x": 0,   "y": 650, "w": 400, "h": 50, "color": "white" },
+        { "x": 240, "y": 560, "w": 120, "h": 18, "color": "amber" },
+        { "x": 60,  "y": 470, "w": 130, "h": 18, "color": "blue" },
+        { "x": 240, "y": 380, "w": 120, "h": 18, "color": "amber" },
+        { "x": 140, "y": 290, "w": 120, "h": 18, "color": "white" }
+      ],
+      "treats": [
+        { "x": 295, "y": 520 },
+        { "x": 115, "y": 430 },
+        { "x": 295, "y": 340 },
+        { "x": 195, "y": 250 }
+      ],
+      "goalY": 290
+    },
+    {
+      "name": "THE SCALE",
+      "intro": "STAND ON THE COLD SQUARE THEY SAID. DO NOT MOVE THEY SAID. I AM A PROFESSIONAL. I AM STANDING. I AM — okay I stepped off. I AM BACK ON. THE NUMBER KEEPS CHANGING. STOP LOOKING AT MY NUMBER. (one cat is watching me.)",
+      "start": { "x": 30, "y": 580 },
+      "platforms": [
+        { "x": 0,   "y": 650, "w": 400, "h": 50, "color": "white" },
+        { "x": 230, "y": 560, "w": 130, "h": 18, "color": "amber" },
+        { "x": 50,  "y": 470, "w": 130, "h": 18, "color": "blue" },
+        { "x": 230, "y": 380, "w": 130, "h": 18, "color": "amber" },
+        { "x": 40,  "y": 290, "w": 130, "h": 18, "color": "blue" },
+        { "x": 140, "y": 210, "w": 120, "h": 18, "color": "white" }
+      ],
+      "enemies": [
+        { "type": "squirrel", "x1": 230, "x2": 338, "y": 544, "speed": 1.3, "dir": -1 }
+      ],
+      "treats": [
+        { "x": 295, "y": 520 },
+        { "x": 110, "y": 430 },
+        { "x": 295, "y": 340 },
+        { "x": 100, "y": 250 },
+        { "x": 195, "y": 170 }
+      ],
+      "goalY": 210
+    },
+    {
+      "name": "THE THERMOMETER",
+      "intro": "THEY WANT TO PUT IT WHERE. THEY WANT TO PUT IT WHERE. NO. ABSOLUTELY NOT. I HAVE READ ABOUT THIS. I HAVE HEARD THE STORIES. THE TINY HANDS ARE EVERYWHERE AND THEY ALL WANT A TURN.",
+      "start": { "x": 30, "y": 580 },
+      "platforms": [
+        { "x": 0,   "y": 650, "w": 400, "h": 50, "color": "white" },
+        { "x": 0,   "y": 560, "w": 160, "h": 18, "color": "blue" },
+        { "x": 240, "y": 560, "w": 160, "h": 18, "color": "amber" },
+        { "x": 60,  "y": 470, "w": 130, "h": 18, "color": "amber" },
+        { "x": 230, "y": 470, "w": 130, "h": 18, "color": "blue" },
+        { "x": 0,   "y": 380, "w": 160, "h": 18, "color": "blue" },
+        { "x": 240, "y": 380, "w": 160, "h": 18, "color": "amber" },
+        { "x": 60,  "y": 290, "w": 130, "h": 18, "color": "amber" },
+        { "x": 230, "y": 290, "w": 130, "h": 18, "color": "blue" },
+        { "x": 140, "y": 190, "w": 120, "h": 18, "color": "white" }
+      ],
+      "enemies": [
+        { "type": "squirrel", "x1": 0,   "x2": 138, "y": 544, "speed": 1.0, "dir": 1 },
+        { "type": "squirrel", "x1": 240, "x2": 338, "y": 454, "speed": 1.4, "dir": -1 },
+        { "type": "squirrel", "x1": 0,   "x2": 138, "y": 364, "speed": 1.2, "dir": 1 },
+        { "type": "squirrel", "x1": 240, "x2": 338, "y": 274, "speed": 1.5, "dir": -1 }
+      ],
+      "treats": [
+        { "x": 80,  "y": 520 },
+        { "x": 320, "y": 520 },
+        { "x": 120, "y": 430 },
+        { "x": 295, "y": 430 },
+        { "x": 80,  "y": 340 },
+        { "x": 320, "y": 340 },
+        { "x": 295, "y": 250 },
+        { "x": 200, "y": 150 }
+      ],
+      "goalY": 190
+    },
+    {
+      "name": "THE BACK ROOM",
+      "intro": "THEY ARE TAKING ME DOWN THE HALL. WITHOUT MOM. THE FLOOR IS COLD. THE FLOOR IS SO COLD AND SO SLIPPERY AND THERE IS A DRAIN IN IT. (there is a big dog back here too.) (we are both pretending to be brave.) (he is not pretending well.)",
+      "start": { "x": 30, "y": 580 },
+      "platforms": [
+        { "x": 0,   "y": 650, "w": 100, "h": 50, "color": "white" },
+        { "x": 250, "y": 650, "w": 150, "h": 50, "color": "white" },
+        { "x": 130, "y": 570, "w": 100, "h": 16, "color": "white" },
+        { "x": 240, "y": 490, "w": 110, "h": 16, "color": "amber" },
+        { "x": 0,   "y": 400, "w": 200, "h": 16, "color": "white" },
+        { "x": 240, "y": 310, "w": 110, "h": 16, "color": "amber" },
+        { "x": 50,  "y": 220, "w": 110, "h": 16, "color": "blue" },
+        { "x": 240, "y": 130, "w": 130, "h": 16, "color": "amber" },
+        { "x": 150, "y": 40,  "w": 100, "h": 14, "color": "white" }
+      ],
+      "hazards": [
+        { "x": 100, "y": 690, "w": 150, "h": 10 }
+      ],
+      "enemies": [
+        { "type": "big-dog", "x1": 270, "x2": 370, "y": 624, "speed": 0.9, "dir": -1, "chargeRange": 110 },
+        { "type": "squirrel", "x1": 240, "x2": 326, "y": 474, "speed": 1.4, "dir": -1 },
+        { "type": "big-dog", "x1": 20, "x2": 160, "y": 374, "speed": 1.0, "dir": 1, "chargeRange": 110 }
+      ],
+      "treats": [
+        { "x": 175, "y": 530 },
+        { "x": 295, "y": 450 },
+        { "x": 60,  "y": 360 },
+        { "x": 140, "y": 360 },
+        { "x": 295, "y": 270 },
+        { "x": 105, "y": 180 },
+        { "x": 305, "y": 90 },
+        { "x": 200, "y": 0 }
+      ],
+      "goalY": 40
+    },
+    {
+      "name": "THE SHOT",
+      "intro": "THE DOCTOR HAS THE THING. THE POKEY THING. IT IS LONG. IT GLINTS. SHE IS COMING ACROSS THE ROOM WITH IT. (it is like the vacuum but it POKES.) (THE LAST TREAT IS UP BY THE DOOR.) (IF I GET IT WE CAN GO HOME.) BE BRAVE BUBBA. BE BRAVE. BE — (hides behind mom) (gets the treat anyway)",
+      "start": { "x": 20, "y": 580 },
+      "platforms": [
+        { "x": 0,   "y": 650, "w": 400, "h": 50, "color": "white" },
+        { "x": 240, "y": 570, "w": 110, "h": 14, "color": "amber" },
+        { "x": 50,  "y": 490, "w": 110, "h": 14, "color": "blue" },
+        { "x": 240, "y": 410, "w": 110, "h": 14, "color": "amber" },
+        { "x": 0,   "y": 320, "w": 200, "h": 14, "color": "white" },
+        { "x": 240, "y": 320, "w": 110, "h": 14, "color": "amber" },
+        { "x": 50,  "y": 230, "w": 110, "h": 14, "color": "blue" },
+        { "x": 240, "y": 140, "w": 130, "h": 14, "color": "amber" },
+        { "x": 150, "y": 50,  "w": 100, "h": 14, "color": "white" }
+      ],
+      "enemies": [
+        { "type": "big-dog", "x1": 20, "x2": 160, "y": 294, "speed": 1.1, "dir": 1, "chargeRange": 110 },
+        { "type": "squirrel", "x1": 240, "x2": 326, "y": 394, "speed": 1.4, "dir": -1 }
+      ],
+      "treats": [
+        { "x": 295, "y": 530 },
+        { "x": 105, "y": 450 },
+        { "x": 295, "y": 370 },
+        { "x": 60,  "y": 280 },
+        { "x": 140, "y": 280 },
+        { "x": 295, "y": 280 },
+        { "x": 105, "y": 190 },
+        { "x": 305, "y": 100 }
+      ],
+      "goldenTreat": { "x": 200, "y": 10 },
+      "vacuum": { "x": 250, "y": 630, "w": 110, "h": 40, "speed": 0.9, "dir": -1, "range": 60 },
+      "goalY": 50
+    }
+  ]
+}
