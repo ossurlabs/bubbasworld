@@ -3,7 +3,7 @@
 **Status:** Accepted (Phase 2A in progress)
 **Date:** 2026-04-26 (revised 2026-04-26: rename Week → Volume)
 **Deciders:** Lily (CTO, sole engineer, dog mom)
-**Game:** https://bubbasworld.vercel.app · Insta: [@mrbubbaganoush](https://instagram.com/mrbubbaganoush)
+**Game:** https://bubbasworld.vercel.app · Insta: [@venicebeachbub](https://instagram.com/venicebeachbub)
 
 > **Naming convention:** the *cadence* is weekly (a new drop every Monday), but each individual drop is a **Volume** with its own title, themes, and L1–L5 levels. UI displays "VOL N." Data IDs are `vol-NN`. Reference shorthand for a specific level is `V{n}-L{1-5}` (e.g. V2-L3).
 
@@ -22,7 +22,7 @@ The Phase 1 build of Bubba's Two Worlds shipped successfully: 5 hand-designed le
 - More levels (target: 10–20 across multiple volumes)
 - Speedrun timer
 - Optionally: leaderboard, accounts, PWA install
-- Drive Instagram follows for [@mrbubbaganoush](https://instagram.com/mrbubbaganoush) — long-term goal is for Bubba to become a dog influencer
+- Drive Instagram follows for [@venicebeachbub](https://instagram.com/venicebeachbub) — long-term goal is for Bubba to become a dog influencer
 - Maximize laughter / surprise / "fall in love with Bubba" moments
 
 ### Constraints
@@ -157,7 +157,7 @@ Tasks are listed with their dependencies. The **critical path** — the longest 
 | T2 | Add speedrun timer HUD; persist per-level best to `localStorage` | — | 45 min | |
 | T3 | **Archive-aware level select** — list of Volumes, expand to show 5 levels + best time + paw-print on cleared | T0 | 75 min | |
 | ~~T4~~ | ~~Rebalance Level 5~~ — **dropped**: feedback re-clarified that L5 difficulty is correct (people did beat it). Climactic L5 is the design intent. | — | — | |
-| T5 | Add "Follow [@mrbubbaganoush](https://instagram.com/mrbubbaganoush)" CTA to win/lose screens | — | 20 min | |
+| T5 | Add "Follow [@venicebeachbub](https://instagram.com/venicebeachbub)" CTA to win/lose screens | — | 20 min | |
 | T6 | Share card on level complete (Web Share API; canvas screenshot with time + Bubba face) | T2 | 60 min | |
 | T7 | **Author Volume 2 — L1–L5 (first new themed Volume)** — longer levels, more platforms, steady ramp to climactic L5; whole Volume beatable in 5–8 min for a confident player | T0 | 210 min | ★ |
 | T8 | Home screen badge: "NEW LEVELS EVERY MONDAY 🦴" (no emoji actually — Bubba CSS-shape) | — | 20 min | |

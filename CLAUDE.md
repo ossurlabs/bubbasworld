@@ -1,7 +1,7 @@
 # Bubba's Two Worlds — project notes for Claude
 
 A single-file HTML5 canvas platformer. Mobile-first. Lily is the sole engineer.
-Live at https://bubbasworld.vercel.app · Bubba on Instagram: @mrbubbaganoush
+Live at https://bubbasworld.vercel.app · Bubba on Instagram: @venicebeachbub
 
 ## Read first
 
