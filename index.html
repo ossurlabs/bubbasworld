@@ -911,6 +911,7 @@ function drawPortraitOn(canvasEl, expression = 'joy') {
     const dx = Math.floor((canvasEl.width - dw) / 2);
     const dy = Math.floor((canvasEl.height - dh) / 2);
     c.drawImage(BUBBA_PORTRAIT_IMG, dx, dy, dw, dh);
+    if (expression === 'party') drawPartyHat(c, canvasEl.width);
     return;
   }
 
@@ -941,6 +942,46 @@ function drawPortraitOn(canvasEl, expression = 'joy') {
       c.fillRect(offsetX + x * scale, offsetY + y * scale, scale, scale);
     }
   }
+  if (expression === 'party') drawPartyHat(c, canvasEl.width);
+}
+
+// Little tilted cone party hat — Vol 8 "Gotcha Day" portrait topper.
+function drawPartyHat(c, cw) {
+  const cx = cw * 0.5 + 8;   // sit slightly right of center, jaunty
+  const baseY = 56, tipY = 6, halfW = 22;
+  c.save();
+  // Cone
+  c.fillStyle = PAL.pink;
+  c.beginPath();
+  c.moveTo(cx, tipY);
+  c.lineTo(cx - halfW, baseY);
+  c.lineTo(cx + halfW, baseY);
+  c.closePath();
+  c.fill();
+  // Stripes
+  c.fillStyle = PAL.amber;
+  for (let i = 1; i <= 3; i++) {
+    const t = i / 4;
+    const y = tipY + (baseY - tipY) * t;
+    const w = halfW * t;
+    c.fillRect(cx - w, y - 2, w * 2, 4);
+  }
+  // Pom-pom + brim + outline
+  c.fillStyle = PAL.blue;
+  c.beginPath();
+  c.arc(cx, tipY, 5, 0, Math.PI * 2);
+  c.fill();
+  c.fillStyle = PAL.cream;
+  c.fillRect(cx - halfW - 2, baseY - 2, halfW * 2 + 4, 4);
+  c.strokeStyle = PAL.ink;
+  c.lineWidth = 2;
+  c.beginPath();
+  c.moveTo(cx, tipY);
+  c.lineTo(cx - halfW, baseY);
+  c.lineTo(cx + halfW, baseY);
+  c.closePath();
+  c.stroke();
+  c.restore();
 }
 
 // Bone/treat sprite — classic four-bulb dog bone with outline
@@ -1040,7 +1081,8 @@ const sfx = {
     playTone(300, 0.2, 'sawtooth', 0.12, -150);
     setTimeout(() => playTone(200, 0.3, 'sawtooth', 0.12, -100), 180);
   },
-  bounce: () => playTone(440, 0.1, 'triangle', 0.12, 100)
+  bounce: () => playTone(440, 0.1, 'triangle', 0.12, 100),
+  boing: () => playTone(260, 0.18, 'sine', 0.16, 520)
 };
 
 // =============================================================================
@@ -1354,12 +1396,16 @@ const GRAVITY = 0.55;
 const MOVE_SPEED = 3.0;
 const JUMP_POWER = 12.5;
 const MAX_FALL = 14;
+// Bounce pad launch (Vol 8 "bounce house"). Bigger than a flip — reaches ~230px
+// straight up vs. JUMP_POWER's ~150. Additive verb; never touches facing/ghost logic.
+const BOUNCE_POWER = 16;
 
 function currentLevel() { return LEVELS[state.levelIdx]; }
 
 // Platform is solid if it matches the current facing world, or is white.
 function platformSolid(plat, facing) {
   if (plat.color === 'white') return true;
+  if (plat.color === 'bounce') return true; // bounce pads solid in both worlds
   if (plat.color === 'amber' && facing === 1) return true;
   if (plat.color === 'blue' && facing === -1) return true;
   return false;
@@ -1471,9 +1517,19 @@ function updateBubba(dt) {
     if (!platformSolid(plat, b.facing)) continue;
     if (rectOverlap(b, plat)) {
       if (b.vy > 0) {
-        b.y = plat.y - b.h;
-        b.vy = 0;
-        b.onGround = true;
+        if (plat.color === 'bounce') {
+          // Bounce house — launch straight up, never grant standing/coyote.
+          b.y = plat.y - b.h;
+          b.vy = -BOUNCE_POWER;
+          b.onGround = false;
+          plat._squash = 6;
+          sfx.boing();
+          spawnParticles(b.x + b.w / 2, plat.y, 10, PAL.pink);
+        } else {
+          b.y = plat.y - b.h;
+          b.vy = 0;
+          b.onGround = true;
+        }
       } else if (b.vy < 0) {
         b.y = plat.y + plat.h;
         b.vy = 0;
@@ -1672,6 +1728,8 @@ function renderLevel() {
   for (const plat of lvl.platforms) {
     if (plat.color === 'white') {
       drawPlatform(plat, PAL.cream, false);
+    } else if (plat.color === 'bounce') {
+      drawBouncePad(plat);
     } else if (plat.color === 'amber') {
       if (facing === 1) drawPlatform(plat, PAL.amber, false);
       else drawPlatform(plat, PAL.amber, true);
@@ -1767,6 +1825,41 @@ function drawPlatform(plat, color, ghost) {
   ctx.fillStyle = PAL.ink;
   ctx.fillRect(plat.x, plat.y, 1, plat.h);
   ctx.fillRect(plat.x + plat.w - 1, plat.y, 1, plat.h);
+}
+
+// Bounce house pad — springy pink/amber striped bumper. Squashes briefly on launch.
+function drawBouncePad(plat) {
+  const squash = plat._squash > 0 ? plat._squash : 0;
+  if (plat._squash > 0) plat._squash--;
+  const sq = squash * 0.6;            // px the top dips while compressed
+  const y = plat.y + sq;
+  const h = plat.h - sq;
+  // Diagonal candy stripes
+  ctx.save();
+  ctx.beginPath();
+  ctx.rect(plat.x, y, plat.w, h);
+  ctx.clip();
+  ctx.fillStyle = PAL.pink;
+  ctx.fillRect(plat.x, y, plat.w, h);
+  ctx.fillStyle = PAL.amber;
+  const stripe = 10;
+  for (let i = -h; i < plat.w; i += stripe * 2) {
+    ctx.beginPath();
+    ctx.moveTo(plat.x + i, y + h);
+    ctx.lineTo(plat.x + i + h, y);
+    ctx.lineTo(plat.x + i + h + stripe, y);
+    ctx.lineTo(plat.x + i + stripe, y + h);
+    ctx.closePath();
+    ctx.fill();
+  }
+  ctx.restore();
+  // Springy top highlight + dark edge
+  ctx.fillStyle = 'rgba(255,255,255,0.4)';
+  ctx.fillRect(plat.x, y, plat.w, 3);
+  ctx.fillStyle = PAL.ink;
+  ctx.fillRect(plat.x, y, 1, h);
+  ctx.fillRect(plat.x + plat.w - 1, y, 1, h);
+  ctx.fillRect(plat.x, plat.y + plat.h - 1, plat.w, 1);
 }
 
 function drawLava(h) {
@@ -1935,6 +2028,23 @@ function spawnParticles(x, y, count, color) {
   }
 }
 
+// Festive multi-color confetti raining from the top — Vol 8 "Gotcha Day" win flourish.
+function spawnConfetti(count = 44) {
+  const colors = [PAL.pink, PAL.amber, PAL.blue, PAL.cream];
+  for (let i = 0; i < count; i++) {
+    state.particles.push({
+      x: Math.random() * GAME_W,
+      y: -Math.random() * 80,
+      vx: (Math.random() - 0.5) * 2,
+      vy: Math.random() * 2 + 1,
+      size: Math.random() * 4 + 3,
+      color: colors[i % colors.length],
+      life: 70,
+      maxLife: 70
+    });
+  }
+}
+
 function updateParticles() {
   for (let i = state.particles.length - 1; i >= 0; i--) {
     const p = state.particles[i];
@@ -2017,6 +2127,7 @@ function completeLevel() {
   progress.totalTreats += state.treatsCollected.length + (state.goldenCollected ? 1 : 0);
   spawnParticles(state.bubba.x + state.bubba.w/2, state.bubba.y, 30, PAL.amber);
   spawnParticles(state.bubba.x + state.bubba.w/2, state.bubba.y, 20, PAL.blue);
+  if (currentVol && currentVol.id === 'vol-08') spawnConfetti(); // Gotcha Day party
 
   setTimeout(() => {
     const msgs = ['TREATS ACQUIRED. I AM UNSTOPPABLE', 'GOOD BOY HOURS', 'SOMEONE TELL MY MOM', "EASY. SO EASY. DIDN'T EVEN TRY"];
@@ -2059,7 +2170,8 @@ function afterComplete() {
   link.textContent = '@mrbubbaganoush';
   bubble.appendChild(link);
 
-  drawPortraitOn(document.getElementById('portrait-canvas'), 'joy');
+  const portraitMood = (currentVol && currentVol.id === 'vol-08') ? 'party' : 'joy';
+  drawPortraitOn(document.getElementById('portrait-canvas'), portraitMood);
   show('interstitial');
   state.mode = 'interstitial';
 }

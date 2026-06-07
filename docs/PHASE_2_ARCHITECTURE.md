@@ -319,6 +319,18 @@ Post-launch:
 - **Levels can be physically longer/denser in Phase 2.** More platforms, deeper puzzles. But a full Volume stays beatable in 5–8 min for a confident player — snackable replayability is the goal.
 - **Core orange/blue platform-summoning mechanic is untouched.** That's the game's soul. Phase 2 adds depth, not new rules.
 
+### Vol 8 decision (2026-06-07): the bounce pad — a deliberate, scoped "new rule"
+
+Vol 8 (*Gotcha Day*, drops 2026-06-08) follows the emotionally heavy Vol 7 (*The Vet*) with a celebration, and — to make the week feel genuinely *different* — introduces the **first new traversal verb since launch**: the **bounce pad** (`color: "bounce"`).
+
+- **What it is.** A platform that, on contact, launches Bubba straight up at `BOUNCE_POWER` (16 → ~230 px apex, vs. a flip's ~90 px usable climb) instead of letting him stand. Always solid in both worlds.
+- **Why it's safe to add.** It's purely *additive* — it sets an upward velocity and never touches the `b.facing`→ghost coupling that the whole color mechanic rests on. So it cannot create the "blue-on-right is unreachable" class of unbeatable bug. The orange/blue soul is fully intact; the bounce is a new option beside it.
+- **This re-opened a locked decision on purpose.** "No new rules" (above) was consciously set aside for one Volume, with Lily's explicit approval. The bounce pad is now a reusable element for future Volumes, but adding *further* new verbs still requires a fresh sign-off — it is not a new default.
+- **Authoring is sim-gated.** Big bounces overshoot (the 72-px sprite + ~58 frames airtime), so catch platforms must sit on the descending arc near the apex; landing directly above a pad head-bonks. A verified RIGHT module (pad `{x:120,w:120}` → amber catch `{x:258,w:120,top:padTop−165}`) is documented in CLAUDE.md and reused across all five levels. `scripts/bounce-sim.mjs` (headless physics mirror) proves every pad is reachable before authoring; `scripts/sanity.mjs` is the prescribed JSON checker, finally written and calibrated so all shipped Volumes pass clean.
+- **Render-only delight layer.** Confetti on win + a party-hat Bubba portrait, gated to `vol-08` so other Volumes' tone is untouched. Trivially made global later.
+
+Vol 8 arc (steady ramp to a hard L5, per the locked difficulty rule): GUESTS ARRIVE → THE BOUNCE HOUSE → TOO MANY DOGS → THE ZOOMIES (lava) → THE CAKE HEIST (golden bone-cake + vacuum climax).
+
 ## 11. Still open
 
 - **Weekly Insta post template visual** — keep cream/amber/blue, but design once and reuse. Worth one hour to nail.

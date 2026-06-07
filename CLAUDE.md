@@ -16,7 +16,7 @@ Live at https://bubbasworld.vercel.app · Bubba on Instagram: @mrbubbaganoush
 
 ## Locked design decisions — do not re-litigate without asking
 
-- Core mechanic — orange platforms appear when Bubba faces right, blue when facing left — is untouched. This is the soul of the game. Phase 2 adds depth, not new rules.
+- Core mechanic — orange platforms appear when Bubba faces right, blue when facing left — is untouched. This is the soul of the game. Phase 2 adds depth, not new rules. **Exception (Vol 8, Gotcha Day):** the bounce pad (`color: "bounce"`) adds one new *additive* verb — a launch — that never touches the facing/ghost coupling. This was a deliberate, approved re-opening of "no new rules" for one Volume; it is now a reusable element, but new traversal verbs still need explicit sign-off, not a default.
 - Weekly drop content model: 5 new levels every Monday, episodic, not procedural, not endless. Each weekly drop is a **Volume** (e.g. "Vol 2 · Adventures").
 - Level numbering is per-Volume local: each Volume always has L1–L5. No global numbering. UI shows "VOL N." Data IDs are `vol-NN`. Reference shorthand for a specific level: `V{n}-L{1-5}` (e.g., V2-L3).
 - Volume archive is first-class. Every Volume stays playable forever via the level select screen.
@@ -40,7 +40,14 @@ These rules are not stylistic. Violating any produces an unbeatable level (verif
 - **Big-dog charge** triggers when `|(b.y+60) − (e.y+26)| < 24` AND Bubba within `chargeRange` horizontally. Same-platform-only by design — to force a dodge, place a mandatory treat on the dog's platform.
 - **Always include the full-width white floor at y=650.** It's the recovery zone — one mistimed flip without it soft-locks the run.
 - **Hazard floor gaps ≤ 90 px horizontal** (vol-01 L4 model).
-- **Sanity-check JSON before claiming done.** A node script that flags: max vertical gap > 90; full-width whites above the floor; treats not above any platform; enemy patrol bounds escaping their platform; same-x stacks (colored platform under a walkway in the same x-column); color-side convention violations.
+- **Bounce pads (`color: "bounce"`, Vol 8+).** A platform that launches Bubba straight up at `BOUNCE_POWER` (16 → ~230 px apex) on contact instead of letting him stand. Always solid in both worlds (like white). Authoring rules, all learned from the sim:
+  - **Big bounces overshoot.** ~58 frames of airtime means holding a direction drifts the 72-px sprite far. Don't expect to land directly above the pad — that head-bonks the pad's column anyway (two-sided collision). The catch platform must sit on the *descending* arc, near the apex.
+  - **Verified RIGHT module** (the reliable one): pad `{x:120, w:120}`, hold → , lands cleanly on an **amber** catch at `{x:258, w:120, top: padTop − 165}`. Translation-invariant vertically; reusable at any height. Mirror for a LEFT module needs the pad on the right half (left-drift slams the left wall).
+  - **Keep the rising lane clear** of white/amber above the pad within ~210 px (blue ghosts when facing right, so it's safe). A white/amber there bonks the launch.
+  - **Reach a pad from below** (hop up from the floor / fall onto it) — never require walking onto an elevated pad. Touching a pad = instant bounce, so you can't stand on one.
+  - **Don't strand a bounce over a hazard with no catch.** A missed bounce should drop to a recovery floor (or be the intended L4-style risk).
+  - Validate every pad with `node scripts/bounce-sim.mjs` (prints where each pad lands for hold ←/→/none) before claiming a level done.
+- **Sanity-check JSON before claiming done.** `node scripts/sanity.mjs levels/vol-NN.json [--info]` — FAILs on things that are unambiguously broken and that every shipped Volume passes (out-of-bounds coords, bounce-pad head-bonks, missing fields); `--info` shows softer advisories (recovery floor, floating enemies). NOTE: column-gap / treat-sits-on-platform / patrol-on-platform are deliberately NOT failures — traversal is diagonal cross-color and treats/enemies legitimately float in flight paths, so those produce false alarms. Real verification is playing the level on a phone.
 
 ## Voice and style
 
