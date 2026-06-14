@@ -110,10 +110,11 @@ import { readFileSync, existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
-const volPath = join(ROOT, 'levels/vol-08.json');
+const fileArg = process.argv.slice(2).find(a => !a.startsWith('--'));
+const volPath = fileArg ? join(ROOT, fileArg) : join(ROOT, 'levels/vol-08.json');
 
 if (!existsSync(volPath)) {
-  console.log('No levels/vol-08.json yet — author it, then re-run to probe each bounce pad.');
+  console.log(`No ${fileArg || 'levels/vol-08.json'} yet — author it, then re-run to probe each bounce pad.`);
   process.exit(0);
 }
 const vol = JSON.parse(readFileSync(volPath, 'utf8'));

@@ -331,6 +331,12 @@ Vol 8 (*Gotcha Day*, drops 2026-06-08) follows the emotionally heavy Vol 7 (*The
 
 Vol 8 arc (steady ramp to a hard L5, per the locked difficulty rule): GUESTS ARRIVE → THE BOUNCE HOUSE → TOO MANY DOGS → THE ZOOMIES (lava) → THE CAKE HEIST (golden bone-cake + vacuum climax).
 
+### Vol 9 (2026-06-13): Vegas — themed pack, no new verb
+
+Vol 9 (*Vegas*, drops 2026-06-15) puts Bubba on the Strip. A **slot-platform gamble** and a **neon skyline backdrop** were both prototyped and then cut: the slot's chips ended up a bonus-only score with no real payoff (stakes without a reward — it confused more than it added), and the skyline was too busy behind the puzzle and hurt readability. Vol 9 ships as a clean five-level pack reusing only proven elements — cross-color ladders, the Vol 8 bounce module (L3/L5), and the vacuum climax (L5). No new rule; "no new rules" stays intact.
+
+Vol 9 arc (steady ramp to a hard L5): THE STRIP → THE BUFFET → THE FOUNTAINS (bounce) → THE CASINO FLOOR (hazard gap) → THE HIGH ROLLER (golden + vacuum climax).
+
 ## 11. Still open
 
 - **Weekly Insta post template visual** — keep cream/amber/blue, but design once and reuse. Worth one hour to nail.
