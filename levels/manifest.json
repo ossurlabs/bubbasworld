@@ -8,6 +8,7 @@
     { "id": "vol-06", "title": "Camping",  "released": "2026-05-26", "theme": "packing → the trail → chipmunk brigade → river crossing → campfire", "file": "vol-06.json" },
     { "id": "vol-07", "title": "The Vet",  "released": "2026-06-01", "theme": "waiting room → the scale → the thermometer → the back room → the shot", "file": "vol-07.json" },
     { "id": "vol-08", "title": "Gotcha Day", "released": "2026-06-08", "theme": "guests arrive → the bounce house → too many dogs → the zoomies → the cake heist", "file": "vol-08.json" },
-    { "id": "vol-09", "title": "Vegas", "released": "2026-06-15", "theme": "the strip → the buffet → the fountains → the casino floor → the high roller", "file": "vol-09.json" }
+    { "id": "vol-09", "title": "Vegas", "released": "2026-06-15", "theme": "the strip → the buffet → the fountains → the casino floor → the high roller", "file": "vol-09.json" },
+    { "id": "vol-10", "title": "Summer Fun", "released": "2026-06-22", "theme": "the sprinkler → the ice cream truck → the pool → the cookout → the fireworks", "file": "vol-10.json" }
   ]
 }
