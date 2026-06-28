@@ -2131,6 +2131,13 @@ function scLevel(){ return LEVELS[state.levelIdx]; }
 function scGoalX(){ return scLevel().worldW - 230; }
 function scOverlap(a,b){ return a.x < b.x+b.w && a.x+a.w > b.x && a.y < b.y+b.h && a.y+a.h > b.y; }
 function shotIsOpen(t){ const k = soc.kitty; return Math.abs(t - k.coverC) >= k.coverH; }
+// Kitty always lunges at the ball. She reaches it inside her cover band (save);
+// outside it she stretches to the band's edge and falls short (goal).
+function scKeeperDive(shotY){
+  const k = soc.kitty, top = SC_MOUTH_TOP, span = scSpan();
+  const center = top + k.coverC*span, reach = k.coverH*span;
+  return Math.max(center - reach, Math.min(center + reach, shotY));
+}
 function scKickSfx(){ playTone(160, 0.09, 'square', 0.18, -60); }
 
 function soccerBegin(){
@@ -2256,6 +2263,7 @@ function scAim(){
   if (state.input.jumpPressed){
     a.shotY = SC_MOUTH_TOP + a.t * scSpan();
     soc.shotSaved = !shotIsOpen(a.t);
+    soc.kitty.diveY = scKeeperDive(a.shotY);
     scLaunch(scGoalX()+120, a.shotY);
     soc.phase = 'kick'; soc.kickT = 0; soc.shake = 6; scKickSfx();
   }
@@ -2264,6 +2272,7 @@ function scAim(){
 function scKick(){
   const ball = soc.ball;
   soc.kickT++;
+  if (soc.kitty.diveY != null) soc.kitty._curY += (soc.kitty.diveY - soc.kitty._curY)*0.4;
   ball.x += ball.vx; ball.y += ball.vy; ball._spin += 0.4;
   if (soc.phase === 'kick' && ball.x >= scGoalX() + 110){
     soc.phase = 'resolve';
@@ -2293,6 +2302,7 @@ function scShootAim(){
   if (state.input.jumpPressed){
     a.shotY = SC_MOUTH_TOP + a.t * scSpan();
     soc.shotSaved = !shotIsOpen(a.t);
+    soc.kitty.diveY = scKeeperDive(a.shotY);
     scLaunch(GAME_W/2, a.shotY);
     soc.phase = 'shoot-kick'; soc.kickT = 0; soc.shake = 6; scKickSfx();
   }
@@ -2301,6 +2311,7 @@ function scShootAim(){
 function scShootKick(){
   const ball = soc.ball, s = soc.shoot;
   soc.kickT++;
+  if (soc.kitty.diveY != null) soc.kitty._curY += (soc.kitty.diveY - soc.kitty._curY)*0.4;
   ball.x += ball.vx; ball.y += ball.vy; ball._spin += 0.4;
   if (soc.phase === 'shoot-kick' && soc.kickT >= 20){
     soc.phase = 'shoot-resolve';
@@ -2421,7 +2432,7 @@ function scFieldScene(){
   soc.bones.forEach((bn,i)=>{ if(soc.bonesGot.has(i))return; const bx=bn.x-cam; if(bx>-20&&bx<GAME_W+20) scBone(bx,bn.y+Math.sin(state.time*0.005+i)*3); });
   for(const d of soc.defenders){ const dsx=d.x-cam; if(dsx>-60&&dsx<GAME_W+60) scSquirrel(dsx, d.y, d.dir); }
   const inShot = (soc.phase==='aim'||soc.phase==='kick'||soc.phase==='resolve');
-  const diving = (soc.phase==='kick'||soc.phase==='resolve') && soc.shotSaved;
+  const diving = (soc.phase==='kick'||soc.phase==='resolve');
   const ky = inShot ? Math.min(soc.kitty._curY, SC_GROUND-soc.kitty.h) : soc.kitty.y;
   scKitty(soc.kitty.x-cam, ky, diving?'dive':'idle', true);
   scBall(soc.ball.x-cam, soc.ball.y);
@@ -2433,7 +2444,7 @@ function scShootScene(){
   const gx = GAME_W/2 - 89;
   scGoal(gx);
   ctx.fillStyle='rgba(239,233,217,0.7)'; ctx.fillRect(GAME_W/2-3, SC_GROUND-8, 6,6);
-  const diving = (soc.phase==='shoot-kick'||soc.phase==='shoot-resolve') && soc.shotSaved;
+  const diving = (soc.phase==='shoot-kick'||soc.phase==='shoot-resolve');
   const ky = Math.min(soc.kitty._curY, SC_MOUTH_BOT-soc.kitty.h);
   scKitty(GAME_W/2-36, ky, diving?'dive':'idle', false);
   scBall(soc.ball.x, soc.ball.y);
