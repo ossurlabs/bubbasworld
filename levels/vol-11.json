@@ -1,0 +1,118 @@
+{
+  "id": "vol-11",
+  "title": "World Cup",
+  "gameType": "soccer",
+  "intro": "THE WORLD CUP IS ON TV AND MOM WON'T STOP YELLING AT IT SO I HAVE DECIDED TO WIN IT MYSELF. ME VERSUS KITTY. MY BROTHER'S CAT. HE IS IN GOAL. HE IS SMUG ABOUT IT. FOUR MATCHES TO THE FINAL, ONE BALL, ZERO CHILL. THIS IS BUBBA'S WORLD CUP.",
+  "levels": [
+    {
+      "name": "KICKOFF",
+      "type": "dash",
+      "intro": "KITTY. MY BROTHER'S CAT. HE IS IN GOAL AND HE THINKS HE CAN STOP ME. HE IS WRONG. I AM DESTINY. RUN RIGHT, DODGE THE FLUFFY TRAITORS, THEN — THE KICK. WATCH WHERE KITTY STANDS. AIM FOR THE GAP.",
+      "worldW": 2400,
+      "keeperSave": 0.16,
+      "marker": 0.018,
+      "shotClock": null,
+      "defenders": [
+        { "x1": 470, "x2": 640, "speed": 1.1 },
+        { "x1": 820, "x2": 1000, "speed": 1.4 },
+        { "x1": 1180, "x2": 1340, "speed": 1.6 },
+        { "x1": 1500, "x2": 1680, "speed": 1.5 }
+      ],
+      "bones": [
+        { "x": 360, "y": 490 },
+        { "x": 740, "y": 400 },
+        { "x": 1100, "y": 490 },
+        { "x": 1420, "y": 400 },
+        { "x": 1820, "y": 490 }
+      ],
+      "hazards": []
+    },
+    {
+      "name": "THE BREAKAWAY",
+      "type": "dash",
+      "intro": "THE WHOLE TEAM IS BETWEEN ME AND THE NET. THE WHOLE. TEAM. THEY ARE SMALL AND THEY ARE MANY AND THEY ALL HAVE THE SAME LITTLE SHIRT. I RESPECT THE COMMITMENT. I WILL STILL RUN THROUGH ALL OF THEM.",
+      "worldW": 2750,
+      "keeperSave": 0.22,
+      "marker": 0.024,
+      "shotClock": null,
+      "defenders": [
+        { "x1": 430, "x2": 600, "speed": 1.5 },
+        { "x1": 760, "x2": 960, "speed": 1.7 },
+        { "x1": 1080, "x2": 1240, "speed": 1.6 },
+        { "x1": 1380, "x2": 1560, "speed": 1.9 },
+        { "x1": 1700, "x2": 1900, "speed": 1.8 },
+        { "x1": 2020, "x2": 2180, "speed": 1.7 }
+      ],
+      "bones": [
+        { "x": 340, "y": 400 },
+        { "x": 700, "y": 490 },
+        { "x": 1020, "y": 400 },
+        { "x": 1320, "y": 490 },
+        { "x": 1660, "y": 400 },
+        { "x": 2100, "y": 490 }
+      ],
+      "hazards": []
+    },
+    {
+      "name": "THE MUD BOWL",
+      "type": "dash",
+      "intro": "IT RAINED. THE FIELD IS SOUP NOW. THERE ARE HOLES OF DEEP BROWN SOUP AND IF I FALL IN THE SOUP IT IS OVER. (IT WOULD ALSO BE AMAZING. FOCUS, BUBBA.) JUMP THE SOUP. SCORE THE GOAL. STAY CLEAN. IMPOSSIBLE. TRYING ANYWAY.",
+      "worldW": 2900,
+      "keeperSave": 0.27,
+      "marker": 0.030,
+      "shotClock": null,
+      "defenders": [
+        { "x1": 430, "x2": 600, "speed": 1.6 },
+        { "x1": 980, "x2": 1160, "speed": 1.8 },
+        { "x1": 1560, "x2": 1740, "speed": 1.9 },
+        { "x1": 2080, "x2": 2260, "speed": 1.8 }
+      ],
+      "bones": [
+        { "x": 360, "y": 400 },
+        { "x": 780, "y": 490 },
+        { "x": 1300, "y": 400 },
+        { "x": 1860, "y": 490 },
+        { "x": 2360, "y": 400 }
+      ],
+      "hazards": [
+        { "x1": 700, "x2": 800 },
+        { "x1": 1420, "x2": 1520 },
+        { "x1": 1980, "x2": 2090 }
+      ]
+    },
+    {
+      "name": "STOPPAGE TIME",
+      "type": "dash",
+      "intro": "THE CLOCK. THE CLOCK IS RUNNING OUT. THE REF KEEPS LOOKING AT HIS WRIST. MOM IS STANDING UP. THERE IS NO TIME. THERE IS ONLY RUN. SOUP, SQUIRRELS, CLOCK — I DO NOT CARE. GET TO THE NET BEFORE THE WHISTLE. GO. GO. GO.",
+      "worldW": 3150,
+      "keeperSave": 0.32,
+      "marker": 0.038,
+      "shotClock": 24,
+      "defenders": [
+        { "x1": 420, "x2": 600, "speed": 1.9 },
+        { "x1": 760, "x2": 960, "speed": 2.1 },
+        { "x1": 1120, "x2": 1300, "speed": 2.0 },
+        { "x1": 1460, "x2": 1660, "speed": 2.2 },
+        { "x1": 1820, "x2": 2020, "speed": 2.1 },
+        { "x1": 2200, "x2": 2400, "speed": 2.2 },
+        { "x1": 2560, "x2": 2740, "speed": 2.0 }
+      ],
+      "bones": [
+        { "x": 360, "y": 400 },
+        { "x": 900, "y": 490 },
+        { "x": 1380, "y": 400 },
+        { "x": 1920, "y": 490 },
+        { "x": 2480, "y": 400 }
+      ],
+      "hazards": [
+        { "x1": 1040, "x2": 1140 },
+        { "x1": 2120, "x2": 2220 }
+      ]
+    },
+    {
+      "name": "THE FINAL",
+      "type": "shootout",
+      "intro": "FINAL. JUST ME AND KITTY AND THE SKY. HE HASN'T BLINKED IN SIX MINUTES. NEITHER HAVE I. FIRST TO THREE. NO RUNNING NOW — JUST THE KICK, OVER AND OVER. KITTY COVERS MORE OF THE GOAL EVERY SHOT AND THE BAR SWEEPS FASTER. WAIT FOR THE GREEN. ONE KICK. FOR ALL THE DOGS WHO EVER LIVED. MOM IS WATCHING. KICK."
+    }
+  ]
+}

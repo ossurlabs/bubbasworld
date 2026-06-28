@@ -337,6 +337,19 @@ Vol 9 (*Vegas*, drops 2026-06-15) puts Bubba on the Strip. A **slot-platform gam
 
 Vol 9 arc (steady ramp to a hard L5): THE STRIP → THE BUFFET → THE FOUNTAINS (bounce) → THE CASINO FLOOR (hazard gap) → THE HIGH ROLLER (golden + vacuum climax).
 
+### Vol 11 decision (2026-06-28): game modes — a whole different game for one Volume
+
+Vol 11 (*World Cup*, drops 2026-06-29, mid the real 2026 World Cup) is the first Volume that is **not the orange/blue platformer at all**. Lily deliberately re-opened the locked "core mechanic is the soul / no new rules" decision — as owner — to build a **soccer game mode**, with the explicit intent to keep adding *other* game modes in future Volumes. This is a bigger re-opening than the Vol 8 bounce pad (which was additive *within* the platformer); Vol 11 is a second game entirely.
+
+- **Game-mode architecture.** A Volume may declare `"gameType"` (default `"platformer"`). `activateVolume()` sets `state.gameType` from the pack. The main loop, `render()`, and `beginPlay()` dispatch on it at **three seams**; everything else (loading, archive, clear-tracking, intro/complete/fail/interstitial/win screens, the `?vol=` deep-link, the timer) is mode-agnostic and shared. The platformer engine is **untouched** — soccer lives in one self-contained block (`soc` state + `sc*` helpers) that reuses the existing Bubba `sprites`, `sfx`, particles, and `floatText`. Future modes slot into the same three seams.
+- **The soccer mode.** L1–L4 = a side-scrolling **dash** (Bubba dribbles right, dodges rival squirrels in jerseys, optional collectible bones; ramp adds a mud-pit hazard at L3 and a 24s shot clock at L4). L5 = a **penalty shootout** vs Kitty (first to 3, sudden death, the Cup). Steady ramp to a climactic L5 holds.
+- **The shot is precision-timing, not aiming.** Kitty visibly covers a band of the goal (red wash); a marker sweeps and glows GREEN in the open gap / RED over Kitty; tap on green = goal. Ramp = Kitty covers more + sweeps faster + repositions each shot. (First design used a hidden RNG dive and read as luck — replaced.)
+- **Kitty** = Lily's brother's real cat, a seal-point Himalayan. Pure rival/boss (no teammate arc). Always "Kitty," never "the cat." Real sprite sheet (`kitty.png`): sitting pose = keeper idle, leaping pose = dive save, white-keyed to transparent and embedded as base64 like Bubba's sheet.
+- **Built scratch-first.** Prototyped standalone as `soccer.html` (feel tuned with Lily on phone), then ported into `index.html` behind the `gameType` seam.
+- **`scripts/sanity.mjs` does NOT apply** to soccer Volumes (different schema — no platforms/treats). Don't run it on `vol-11.json`. Verification is playing it on a phone, as always.
+
+Vol 11 arc: KICKOFF → THE BREAKAWAY → THE MUD BOWL → STOPPAGE TIME → THE FINAL (shootout vs Kitty).
+
 ## 11. Still open
 
 - **Weekly Insta post template visual** — keep cream/amber/blue, but design once and reuse. Worth one hour to nail.
