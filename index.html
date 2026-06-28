@@ -2286,8 +2286,8 @@ function scKick(){
 function scSetupShot(){
   const s = soc.shoot, k = soc.kitty;
   soc.aim.t = 0; soc.aim.dir = 1;
-  soc.aim.speed = 0.026 + s.shotNum*0.006;
-  k.coverH = Math.min(0.42, 0.20 + s.shotNum*0.03);
+  soc.aim.speed = 0.036 + s.shotNum*0.008;
+  k.coverH = Math.min(0.46, 0.28 + s.shotNum*0.035);
   k.coverC = k.coverH + Math.random()*(1 - 2*k.coverH);
   k._curY = SC_MOUTH_TOP + k.coverC*scSpan();
   Object.assign(soc.ball, { x:GAME_W/2-9, y:SC_GROUND-8, vx:0, vy:0, _spin:0 });
