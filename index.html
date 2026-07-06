@@ -409,6 +409,8 @@
     max-width: 320px;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
+    touch-action: pan-y;
+    overscroll-behavior: contain;
     padding: 4px 6px 4px 0;
     margin: 14px 0;
   }
@@ -2679,8 +2681,11 @@ window.addEventListener('keyup', (e) => {
   if (e.key === ' ' || e.key === 'w' || e.key === 'W' || e.key === 'ArrowUp') state.input.jump = false;
 });
 
-// Prevent scroll / zoom
-document.addEventListener('touchmove', (e) => e.preventDefault(), { passive: false });
+// Prevent scroll / zoom — but let the archive lists scroll internally.
+document.addEventListener('touchmove', (e) => {
+  if (e.target.closest && e.target.closest('.archive-scroll')) return;
+  e.preventDefault();
+}, { passive: false });
 document.addEventListener('gesturestart', (e) => e.preventDefault());
 
 // =============================================================================
