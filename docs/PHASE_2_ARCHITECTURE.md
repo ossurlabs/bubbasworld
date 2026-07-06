@@ -350,6 +350,15 @@ Vol 11 (*World Cup*, drops 2026-06-29, mid the real 2026 World Cup) is the first
 
 Vol 11 arc: KICKOFF → THE BREAKAWAY → THE MUD BOWL → STOPPAGE TIME → THE FINAL (shootout vs Kitty).
 
+### Vol 12 (2026-07-06): The Booms — clean platformer return, no new rule
+
+Vol 12 (*The Booms*, drops 2026-07-06) returns to the orange/blue platformer after Vol 11's soccer detour (no `gameType` field → engine defaults to `"platformer"`). Theme is fireworks night from the **scared-dog POV** — the booms won't stop, and the whole Volume is a room-by-room journey to the one safe place, the bathroom. Emotionally in the Vol 7 (*The Vet*) register but played **scared-but-funny**, not tender. Distinct from Vol 10's "THE FIREWORKS" (which was celebratory).
+
+- **No new verb.** Reuses only proven elements — cross-color ladders, the Vol 8 bounce module (L3/L5), a hazard floor gap (L4, cookout geometry), and the **vacuum climax** (L5), lampshaded ("THE VACUUM. IT FOLLOWED ME INTO THE BATHROOM. OF COURSE IT DID."). "No new rules" stays intact.
+- **Validated:** `sanity.mjs` 0 FAIL (lone info = intentional L4 hazard floor, same as Vol 10 cookout); `bounce-sim.mjs` confirms both pads land on their amber catch. Phone play still required before declaring done.
+
+Vol 12 arc (steady ramp to a hard L5): THE FIRST BOOM → HIDE. HIDE NOW. → UP THE COUCH (bounce) → THE LONG HALL (hazard) → THE GRAND FINALE (bathtub + golden bone + vacuum climax).
+
 ## 11. Still open
 
 - **Weekly Insta post template visual** — keep cream/amber/blue, but design once and reuse. Worth one hour to nail.
